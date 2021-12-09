@@ -7,7 +7,8 @@ import "components/Application.scss";
 export default function Application(props) {
 
   const [day, setDay] = useState("Monday");
-  const [selected, setSelected] = useState(false);
+ // const [selected, setSelected] = useState(false);
+ const [interviewer, setInterviewer] = useState({});
 
   const interviewers = [
     { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
@@ -60,10 +61,7 @@ export default function Application(props) {
       </section>
 
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
-        {/* <InterviewerList interviewers={interviewers} selected={selected} setSelected={(selected) => setSelected(selected) } /> */}
-        <InterviewerList interviewers={interviewers} value={selected} onChange={setSelected} />
- 
+        <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer}  />
       </section>
 
     </main> 

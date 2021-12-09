@@ -3,16 +3,15 @@ import React from "react";
 // import classNames from "classnames";
 import "components/Appointment/style.scss";
 
-export default function Appointment(props) {
+export default function Header(props) {
   
-  function getAppointment(time) {
-    if (time) return "Appointment At " + time;
-    return "No Appointments";
-  }
   // const interviewerClass = classNames("interviewers__item", 
   //   {"interviewers__item--selected": props.selected });
 
     return (
-      <article className="appointment">{getAppointment(props.time)}</article>     
+      <header className="appointment__time">
+        <h4 className="text--semi-bold">{props.time}</h4>
+        <hr className="appointment__separator" />
+      </header>    
     );
 }
