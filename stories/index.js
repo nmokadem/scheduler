@@ -15,6 +15,8 @@ import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment";
 import Header from "components/Appointment/Header.js";
 import Empty from "components/Appointment/Empty.js";
+import Show from "components/Appointment/Show.js";
+import Confirm from "components/Appointment/Confirm.js";
 
 
 storiesOf("Button", module)
@@ -147,4 +149,8 @@ storiesOf("DayListItem", module) //Initiates Storybook and registers our DayList
       .add("Appointment", () => <Appointment />)
       .add("Appointment with Time", () => <Appointment time="12pm" />)
       .add("Header", () => <Header time="12pm" />)
-      .add("Empty", () => <Empty onAdd={action("onAdd")} />);
+      .add("Empty", () => <Empty onAdd={action("onAdd")} />)
+      .add("Show", () => <Show onEdit={action("onEdit")} onDelete={action("onDelete")}/>)
+      .add("Confirm", () => <Confirm onCancel={action("onCancel")} onConfirm={action("onConfirm")}/>);
+      
+
