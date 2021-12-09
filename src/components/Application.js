@@ -63,7 +63,6 @@ export default function Application(props) {
       <section className="schedule">
         <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer}  />
       </section>
-
     </main> 
   );
 }
