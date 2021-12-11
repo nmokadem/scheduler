@@ -17,19 +17,14 @@ export default function Appointment(props) {
 
     return (
       // <article className="appointment">{getAppointment(props.time)}</article>  
-      <Fragment> 
-      <Header time={props.time}></Header>
-      {props.interview
-        ? 
-        <>
-          <Show interviewer={props.interview.interviewer} student={props.interview.student} onEdit={props.onEdit} onDelete={props.onDelete}/>
-        </>
-        :
-        <>
-          <Empty onAdd={props.onAdd} />
-        </>
-      }
-    </Fragment>
-
+      <article className="appointment"> 
+        <Header time={props.time}></Header>
+        {props.interview
+          ? 
+            <Show interviewer={props.interview.interviewer} student={props.interview.student} onEdit={props.onEdit} onDelete={props.onDelete}/>
+          :
+            <Empty onAdd={props.onAdd} />
+        }
+      </article>
     );
 }
