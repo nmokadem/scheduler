@@ -3,14 +3,12 @@ import axios from "axios";
 import DayList from "components/DayList";
 import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import useVisualMode from "hooks/useVisualMode";
 
 import "components/Application.scss";
 
 export default function Application(props) {
-
-  // const [days, setDays] = useState([]);
-  // const [day, setDay] = useState("Monday");
 
   const [state, setState] = useState({
     day: "Monday",
@@ -18,8 +16,6 @@ export default function Application(props) {
     appointments: {},
     dailyAppointments: []
   });
-
-  // let dailyAppointments = [];
 
   const setDay = day => {
     setState({ ...state, day });
@@ -29,16 +25,14 @@ export default function Application(props) {
   //   setState(prev => ({ ...prev, days }));
   // }
   
-  
   const [interviewer, setInterviewer] = useState({});
-
-  const interviewers = [
-    { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
-    { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
-    { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
-    { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
-    { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
-  ];
+  // const interviewers = [
+  //   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
+  //   { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
+  //   { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
+  //   { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
+  //   { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
+  // ];
 
 
   useEffect(() => {
@@ -100,10 +94,14 @@ export default function Application(props) {
       <section className="schedule">
         {/* <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer}  /> */}
         {state.dailyAppointments.map(appointment => {
-return          <Appointment key={appointment.id} {...appointment} />
+            return <Appointment key={appointment.id} {...appointment} 
+            // id={appointment.id}
+            // time={appointment.time}
+            interviewer={getInterview(state,appointment.interview)}
+            />
+          })
         }
-         )
-        }
+        <Appointment time="5pm"/>
       </section>
     </main> 
   );

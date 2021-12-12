@@ -7,7 +7,7 @@ import Show from "components/Appointment/Show.js";
 import Empty from "components/Appointment/Empty.js";
 
 export default function Appointment(props) {
-  
+  //console.log(props);
   function getAppointment(time) {
     if (time) return "Appointment At " + time;
     return "No Appointments";
@@ -21,7 +21,7 @@ export default function Appointment(props) {
         <Header time={props.time}></Header>
         {props.interview
           ? 
-            <Show interviewer={props.interview.interviewer} student={props.interview.student} onEdit={props.onEdit} onDelete={props.onDelete}/>
+            <Show interviewer={props.interviewer.interviewer} student={props.interview.student} onEdit={props.onEdit} onDelete={props.onDelete}/>
           :
             <Empty onAdd={props.onAdd} />
         }
