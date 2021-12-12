@@ -3,8 +3,8 @@ import axios from "axios";
 import DayList from "components/DayList";
 import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
-import useVisualMode from "hooks/useVisualMode";
+
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 import "components/Application.scss";
 
@@ -14,50 +14,33 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     appointments: {},
-    dailyAppointments: []
+    interviewers: {},
+    dailyAppointments: [],
+    dailyInterviewers: []
   });
 
   const setDay = day => {
     setState({ ...state, day });
   }
 
-  // const setDays = (days) => {
-  //   setState(prev => ({ ...prev, days }));
-  // }
-  
   const [interviewer, setInterviewer] = useState({});
-  // const interviewers = [
-  //   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
-  //   { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
-  //   { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
-  //   { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
-  //   { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
-  // ];
-
 
   useEffect(() => {
     // Sets the dailyAppointments on initial render and whenever state.day or state.appointments changes
-    setState({ ...state, dailyAppointments : getAppointmentsForDay(state, state.day)});
-    
-    // NOTE ON HOW React.useEffect hook works:
-    // - React state gets updated asynchronously
-    // ---> When state is update asynchornously, we need a dependency 
-    // ---> (as listed below in the dependency array [state.day, state.appointments])
-    // The dependency array allows React to trigger a re-render and execution of code when
-    // something in the dependency array change its value
-    
-  }, [state.day, state.appointments]);
+    setState({ ...state, dailyAppointments : getAppointmentsForDay(state, state.day)});    
+    // Sets the dailyInterviewers on initial render and whenever state.day or state.interviewers changes
+    //setState({ ...state, dailyInterviewers : getInterviewersForDay(state, state.day)});    
+  }, [state.day, state.appointments, state.interviewers]);
 
 
   // useEffect(() => {
-  //   const url = `http://localhost:8001/api/days`;
-  //   axios.get(url).then(response => {
-  //     setDays([...response.data]);
-  //   });
-  // }, []);
+  //   // Sets the dailyInterviewers on initial render and whenever state.day or state.interviewers changes
+  //   setState({ ...state, dailyInterviewers : getInterviewersForDay(state, state.day)});    
+  // }, [state.day, state.interviewers]);
+
+  //let dailyInterviewers = getInterviewersForDay(state, state.day);
 
   useEffect(() => {
-    //axios.get("/api/days").then(response => setDays(response.data));
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
@@ -95,9 +78,7 @@ export default function Application(props) {
         {/* <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer}  /> */}
         {state.dailyAppointments.map(appointment => {
             return <Appointment key={appointment.id} {...appointment} 
-            // id={appointment.id}
-            // time={appointment.time}
-            interviewer={getInterview(state,appointment.interview)}
+            interviewer={getInterview(state,appointment.interview)} interviewers={getInterviewersForDay(state, state.day)}
             />
           })
         }

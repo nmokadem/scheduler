@@ -9,16 +9,19 @@ const useVisualMode = function(initial) {
     if (replace) {
       setMode(mode);
     } else {
-      setHistory(history.push(mode));
+      setHistory(history.concat([mode]));
+      //setHistory(history.push(mode));
       setMode(newMode);
     }
+    console.log("TRASITION ===>>",mode,history);
   };
 
   const back = function() {
-    setMode( setHistory(history.pop()) );
+    setMode(history[history.length-1]);
+    setHistory(history.splice(-1,1));
+    console.log("BACK ===>>",mode,history);
   };
 
-  // Don't forget this!  history is needed here
   return { mode, transition, back, history };
 };
 

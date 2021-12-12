@@ -12,7 +12,7 @@ export function getAppointmentsForDay(state, day) {
   for (let i = 0; i < appointments.length; i++) {
     appointmentsArray.push(state.appointments[appointments[i]]);
   }
-//console.log(appointmentsArray);
+  // console.log("selectors.js: getAppointmentsForDay ==================>",appointmentsArray);
   return appointmentsArray;
 }
 
@@ -25,6 +25,26 @@ export function getInterview(state, interview) {
   //console.log("selectors.js: getInterview ==================>",thisInterview);
   return thisInterview;
 }
+
+
+export function getInterviewersForDay(state, day) {
+  let interviewersArray =[];
+  let interviewers = [];
+
+  for (let dayObj of state.days) {
+    if (dayObj.name === day) {
+      interviewers = dayObj.interviewers;
+      break;
+    }
+  }
+  
+  for (let i = 0; i < interviewers.length; i++) {
+    interviewersArray.push(state.interviewers[interviewers[i]]);
+  }
+  // console.log("selectors.js: getInterviewersForDay ==================>",interviewersArray);
+  return interviewersArray;
+}
+
 
 // [
 //   {"id":1,"name":"Monday","appointments":[1,2,3,4,5],"interviewers":[1,5,6,7,10],"spots":5},

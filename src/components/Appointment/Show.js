@@ -4,7 +4,7 @@ import React from "react";
 import "components/Appointment/style.scss";
 
 export default function Show(props) {
-  console.log(props);
+  //console.log(props);
   //console.log(props.interviewer);
   // const interviewerClass = classNames("interviewers__item", 
   //   {"interviewers__item--selected": props.selected });
