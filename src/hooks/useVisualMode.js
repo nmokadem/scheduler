@@ -16,14 +16,14 @@ const useVisualMode = function(initial) {
       //setHistory(history.concat([mode]));
       setMode(newMode);
     }
-    //console.log("useViualMode TRASITION ===>>",mode,history);
+    console.log("useViualMode TRASITION ===>>",mode,history);
   };
 
   const back = function() {
     if (history.length > 1) {
       setMode(history[history.length-1]);
       setHistory(history.splice(-1,1));
-      //console.log("useViualMode BACK ===>>",mode,history);
+      console.log("useViualMode BACK ===>>",mode,history);
     }
   };
 

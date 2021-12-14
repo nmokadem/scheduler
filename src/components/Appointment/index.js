@@ -6,6 +6,7 @@ import Show from "components/Appointment/Show.js";
 import Empty from "components/Appointment/Empty.js";
 import Status from "components/Appointment/Status.js";
 import Form from "components/Appointment/Form.js";
+import Confirm from "components/Appointment/Confirm.js";
 import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
@@ -15,6 +16,10 @@ export default function Appointment(props) {
   const SHOW   = "SHOW";
   const CREATE = "CREATE";
   const SAVING = "SAVING";
+  const DELETING = "DELETING";
+  const CONFIRM = "CONFIRM";
+  const EDIT = "EDIT";
+
 
   function getAppointment(time) {
     if (time) return "Appointment At " + time;
@@ -26,38 +31,68 @@ export default function Appointment(props) {
   );
 
   function save(name, interviewer) {
+    if (name && interviewer) {
+      const interview = {
+        student: name,
+        interviewer
+      };
+      transition(SAVING);
+      props.bookInterview(props.id, interview) 
+      .then(() => transition(SHOW));
+    }
+  }
+
+  function cancelBooking(name, interviewer) {
     const interview = {
       student: name,
       interviewer
     };
-    transition(SAVING);
-    props.bookInterview(props.id, interview) 
-     .then(() => transition(SHOW));
+    transition(DELETING);
+
+    props.cancelInterview(props.id, interview) 
+     .then(() => transition(EMPTY));
   }
 
-if (mode === SHOW) {
-  console.log(props);
-}
-
   return (
-    // <article className="appointment">{getAppointment(props.time)}</article>  
+    // <article className="appointment">{getAppointment(props.time)}</article>
     <article className="appointment"> 
       <Header time={props.time}></Header>
 
       {mode === CREATE && 
         <Form 
-          interviewers={props.interviewers} 
-          student="" 
+          interviewers={props.interviewers}
+          student=""
           onCancel={() => back()}
           onSave={save}
         />}
-      
-      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
 
-      {mode === SAVING && <Status />}
+      {mode === EDIT &&
+        <Form 
+          interviewers={props.interviewers}
+          student = {props.interview.student}
+          interviewer = {props.interviewer.interviewer}
+          onCancel={() => back()}
+          onSave={save}
+        />}
+
+      {mode === CONFIRM && 
+        <Confirm
+          onCancel={() => back()}
+          onConfirm={cancelBooking}
+        />}
+
+      {mode === EMPTY && <Empty onAdd = {() => transition(CREATE)} />}
+
+      {mode === SAVING && <Status message="Saving"/>}
+      {mode === DELETING && <Status message="Deleting"/>}
       
       {mode === SHOW && (
-        <Show student={props.interview.student} interviewer={props.interviewer.interviewer} />
+        <Show 
+          student = {props.interview.student} 
+          interviewer = {props.interviewer.interviewer} 
+          onDelete = {() => transition(CONFIRM)} 
+          onEdit = {() => transition(EDIT)}
+        /> 
       )}
 
     </article>
