@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 // import classNames from "classnames";
 import "components/Appointment/style.scss";
@@ -10,11 +10,15 @@ console.log("Form props : ",props);
 
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-
+  const myInput = useRef()
   const captureFormInfo= () => {
     props.onSave(student, interviewer);
   }
 
+  useEffect(() => {
+    myInput.current.focus();
+  },[]);
+  
   const onChangeHandler = (event) => {
     //this.setSate({value:event.target.value});
     setStudent(event.target.value);
@@ -24,7 +28,7 @@ console.log("Form props : ",props);
   <main className="appointment__card appointment__card--create">
     <section className="appointment__card-left">
       <form autoComplete="off" onSubmit={event => event.preventDefault()} >
-        <input
+        <input ref={myInput}
           className="appointment__create-input text--semi-bold"
           name="student"
           type="text"

@@ -53,6 +53,15 @@ export default function Appointment(props) {
      .then(() => transition(EMPTY));
   }
 
+  const getInterviewrId = (name) => {
+   for (let interviewer of props.interviewers) {
+     if (interviewer.name === name) {
+       return interviewer.id;
+     }
+   }
+   return 0;  //none found
+  }
+
   return (
     // <article className="appointment">{getAppointment(props.time)}</article>
     <article className="appointment"> 
@@ -70,7 +79,7 @@ export default function Appointment(props) {
         <Form 
           interviewers={props.interviewers}
           student = {props.interview.student}
-          interviewer = {props.interviewer.interviewer}
+          interviewer = {getInterviewrId(props.interviewer.interviewer)}
           onCancel={() => back()}
           onSave={save}
         />}

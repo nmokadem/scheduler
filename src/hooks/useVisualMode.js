@@ -21,8 +21,13 @@ const useVisualMode = function(initial) {
 
   const back = function() {
     if (history.length > 1) {
-      setMode(history[history.length-1]);
-      setHistory(history.splice(-1,1));
+//      setMode(history[history.length-1]);
+//      setHistory(history.splice(-1,1));
+      setHistory((prev) => {
+        const newArray = prev.slice(0,-1);
+        setMode(newArray[newArray.length-1]);
+        return newArray;
+      })
       console.log("useViualMode BACK ===>>",mode,history);
     }
   };
