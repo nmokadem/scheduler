@@ -84,7 +84,7 @@ const useApplicationData = function() {
       [id]: appointment
     };
 
-    const url = "/api/appoint  ments/" + id;
+    const url = "/api/appointments/" + id;
     return axios.delete(url,{interview})
       .then( () => {
         setState({...state, appointments});
