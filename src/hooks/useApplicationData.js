@@ -33,10 +33,9 @@ const useApplicationData = function() {
 
 
   const updateSpotsCount = (appointments) => {
-    console.log("+++++++++++++++++",appointments);
     let spots = 0;
     let days = [];
-    //let appointments = {};
+
     //console.log("useApplicationData.js updateSlotsCount days ==>", state.days,appointments);
 
     for (let day of state.days) {
@@ -85,7 +84,7 @@ const useApplicationData = function() {
       [id]: appointment
     };
 
-    const url = "/api/appointments/" + id;
+    const url = "/api/appoint  ments/" + id;
     return axios.delete(url,{interview})
       .then( () => {
         setState({...state, appointments});

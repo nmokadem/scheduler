@@ -37,7 +37,7 @@ export function getInterviewersForDay(state, day) {
       break;
     }
   }
-  
+
   for (let i = 0; i < interviewers.length; i++) {
     interviewersArray.push(state.interviewers[interviewers[i]]);
   }

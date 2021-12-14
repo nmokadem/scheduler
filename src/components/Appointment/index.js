@@ -5,6 +5,7 @@ import Header from "components/Appointment/Header.js";
 import Show from "components/Appointment/Show.js";
 import Empty from "components/Appointment/Empty.js";
 import Status from "components/Appointment/Status.js";
+import Error from "components/Appointment/Error.js";
 import Form from "components/Appointment/Form.js";
 import Confirm from "components/Appointment/Confirm.js";
 import useVisualMode from "hooks/useVisualMode";
@@ -19,7 +20,8 @@ export default function Appointment(props) {
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
-
+  const ERROR_SAVE = "ERROR_SAVE ";
+  const ERROR_DELETE = "ERROR_DELETE ";
 
   function getAppointment(time) {
     if (time) return "Appointment At " + time;
@@ -39,7 +41,8 @@ export default function Appointment(props) {
       };
       transition(SAVING);
       props.bookInterview(props.id, interview) 
-      .then(() => transition(SHOW));
+      .then(() => transition(SHOW))
+      .catch(error => transition(ERROR_SAVE,true));
     }
   }
 
@@ -51,8 +54,9 @@ export default function Appointment(props) {
     transition(DELETING);
 
     props.cancelInterview(props.id, interview) 
-     .then(() => transition(EMPTY));
-  }
+     .then(() => transition(EMPTY))
+     .catch(error => transition(ERROR_DELETE,true));
+    }
 
   const getInterviewrName = (id) => {
    for (let interviewer of props.interviewers) {
@@ -96,6 +100,9 @@ export default function Appointment(props) {
       {mode === SAVING && <Status message="Saving"/>}
       {mode === DELETING && <Status message="Deleting"/>}
       
+      {mode === ERROR_SAVE && <Error message="Error in Saving Appointment! Contact Support." onClose={() => back()}/>}
+      {mode === ERROR_DELETE && <Error message="Error in Deletign Appointment! Contact Support." onClose={() => back()}/>}
+
       {mode === SHOW && (
         <Show 
           student = {props.interview.student} 
