@@ -23,8 +23,6 @@ export default function Application(props) {
     setState({ ...state, day });
   }
 
-  const [interviewer, setInterviewer] = useState({});
-
   useEffect(() => {
     // Sets the dailyAppointments on initial render and whenever state.day or state.appointments changes
     setState({ ...state, dailyAppointments : getAppointmentsForDay(state, state.day)});    
@@ -50,6 +48,25 @@ export default function Application(props) {
       setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     });
   }, []);
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    const url = "/api/appointments/" + id;
+    return axios.put(url,{interview}).then( () => setState({...state, appointments}));
+    
+
+    // console.log("Application bookInterview ==> ", id, interview);
+    //console.log("Application bookInterview ==> ", appointment);
+  }
 
   return (
     <main className="layout">
@@ -78,7 +95,10 @@ export default function Application(props) {
         {/* <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer}  /> */}
         {state.dailyAppointments.map(appointment => {
             return <Appointment key={appointment.id} {...appointment} 
-            interviewer={getInterview(state,appointment.interview)} interviewers={getInterviewersForDay(state, state.day)}
+            interviewer={getInterview(state,appointment.interview)} 
+            interviewers={getInterviewersForDay(state, state.day)}
+            //onChange={setInterviewer}
+            bookInterview={bookInterview}
             />
           })
         }

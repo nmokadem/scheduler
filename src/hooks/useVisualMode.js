@@ -7,19 +7,24 @@ const useVisualMode = function(initial) {
   const transition = function(newMode, replace = false) {
 
     if (replace) {
-      setMode(mode);
+      setMode(newMode);
+      let newHistory = [...history];
+      newHistory.pop();
+      setHistory([...newHistory,newMode]);
     } else {
-      setHistory(history.concat([mode]));
-      //setHistory(history.push(mode));
+      setHistory( prev => [...prev,newMode] );
+      //setHistory(history.concat([mode]));
       setMode(newMode);
     }
-    console.log("TRASITION ===>>",mode,history);
+    //console.log("useViualMode TRASITION ===>>",mode,history);
   };
 
   const back = function() {
-    setMode(history[history.length-1]);
-    setHistory(history.splice(-1,1));
-    console.log("BACK ===>>",mode,history);
+    if (history.length > 1) {
+      setMode(history[history.length-1]);
+      setHistory(history.splice(-1,1));
+      //console.log("useViualMode BACK ===>>",mode,history);
+    }
   };
 
   return { mode, transition, back, history };

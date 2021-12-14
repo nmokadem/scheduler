@@ -6,9 +6,14 @@ import InterviewerList from "components/InterviewerList.js";
 import Button from "components/Button.js";
 
 export default function Form(props) {
+console.log("Form props : ",props);
 
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+
+  const captureFormInfo= () => {
+    props.onSave(student, interviewer);
+  }
 
   const onChangeHandler = (event) => {
     //this.setSate({value:event.target.value});
@@ -26,21 +31,17 @@ export default function Form(props) {
           placeholder= "Enter Student Name"
           value= {student}
           onChange={onChangeHandler}
-          /*
-            This must be a controlled component
-            your code goes here
-          */
         />
       </form>
       <InterviewerList 
-        interviewers={props.interviewers} value={props.interviewer}
+        interviewers={props.interviewers} value={interviewer} onChange={setInterviewer}
       />
     </section>
 
     <section className="appointment__card-right">
       <section className="appointment__actions">
         <Button danger onClick={props.onCancel}>Cancel</Button>
-        <Button confirm onClick={props.onSave}>Save </Button>
+        <Button confirm onClick={captureFormInfo}>Save </Button>
       </section>
     </section>
   </main>

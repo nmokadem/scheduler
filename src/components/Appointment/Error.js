@@ -1,13 +1,9 @@
 import React from "react";
 
-// import classNames from "classnames";
 import "components/Appointment/style.scss";
 
 export default function Error(props) {
   
-  // const interviewerClass = classNames("interviewers__item", 
-  //   {"interviewers__item--selected": props.selected });
-
   return (
     <main className="appointment__card appointment__card--error">
       <section className="appointment__error-message">
