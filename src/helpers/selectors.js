@@ -19,8 +19,8 @@ export function getAppointmentsForDay(state, day) {
 export function getInterview(state, interview) {
   const thisInterview = {};
   if (interview) {
-    thisInterview.student = interview.student;
-    thisInterview.interviewer = state.interviewers[interview.interviewer].name;
+    thisInterview.student     = interview.student;
+    thisInterview.interviewer = interview.interviewer;
   }
   //console.log("selectors.js: getInterview ==================>",thisInterview);
   return thisInterview;
@@ -46,6 +46,8 @@ export function getInterviewersForDay(state, day) {
 }
 
 
+
+//### days
 // [
 //   {"id":1,"name":"Monday","appointments":[1,2,3,4,5],"interviewers":[1,5,6,7,10],"spots":5},
 //   {"id":2,"name":"Tuesday","appointments":[6,7,8,9,10],"interviewers":[3,4,5,8,10],"spots":1},
@@ -54,6 +56,7 @@ export function getInterviewersForDay(state, day) {
 //   {"id":5,"name":"Friday","appointments":[21,22,23,24,25],"interviewers":[3,7,8,9,10],"spots":4}
 // ]
 
+//### appointments
 // {
 // "1":{"id":1,"time":"12pm","interview":null},
 // "2":{"id":2,"time":"1pm","interview":null},
@@ -82,6 +85,8 @@ export function getInterviewersForDay(state, day) {
 // "25":{"id":25,"time":"4pm","interview":null}
 // }
 
+
+//### interviewers
 // {
 //   "1":{"id":1,"name":"Sylvia Palmer","avatar":"https://i.imgur.com/LpaY82x.png"},
 //   "2":{"id":2,"name":"Tori Malcolm","avatar":"https://i.imgur.com/Nmx0Qxo.png"},

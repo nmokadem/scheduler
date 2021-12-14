@@ -6,7 +6,7 @@ import InterviewerList from "components/InterviewerList.js";
 import Button from "components/Button.js";
 
 export default function Form(props) {
-console.log("Form props : ",props);
+//console.log("Form props : ",props);
 
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
@@ -38,7 +38,7 @@ console.log("Form props : ",props);
         />
       </form>
       <InterviewerList 
-        interviewers={props.interviewers} value={interviewer} onChange={setInterviewer}
+        interviewers={props.interviewers} interviewer={interviewer} setInterviewer={setInterviewer}
       />
     </section>
 

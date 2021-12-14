@@ -26,8 +26,9 @@ export default function Appointment(props) {
     return "No Appointments";
   }
 
+  //Object.keys(props.interview).length === 0
   const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
+    props.interview.hasOwnProperty('student') ? SHOW : EMPTY
   );
 
   function save(name, interviewer) {
@@ -53,13 +54,13 @@ export default function Appointment(props) {
      .then(() => transition(EMPTY));
   }
 
-  const getInterviewrId = (name) => {
+  const getInterviewrName = (id) => {
    for (let interviewer of props.interviewers) {
-     if (interviewer.name === name) {
-       return interviewer.id;
+     if (interviewer.id === id) {
+       return interviewer.name;
      }
    }
-   return 0;  //none found
+   return '';  //none found
   }
 
   return (
@@ -79,7 +80,7 @@ export default function Appointment(props) {
         <Form 
           interviewers={props.interviewers}
           student = {props.interview.student}
-          interviewer = {getInterviewrId(props.interviewer.interviewer)}
+          interviewer = {props.interview.interviewer}
           onCancel={() => back()}
           onSave={save}
         />}
@@ -98,7 +99,7 @@ export default function Appointment(props) {
       {mode === SHOW && (
         <Show 
           student = {props.interview.student} 
-          interviewer = {props.interviewer.interviewer} 
+          interviewer = {getInterviewrName(props.interview.interviewer)} 
           onDelete = {() => transition(CONFIRM)} 
           onEdit = {() => transition(EDIT)}
         /> 

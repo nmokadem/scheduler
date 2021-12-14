@@ -16,7 +16,7 @@ const useVisualMode = function(initial) {
       //setHistory(history.concat([mode]));
       setMode(newMode);
     }
-    console.log("useViualMode TRASITION ===>>",mode,history);
+    //console.log("useViualMode TRASITION ===>>",mode,history);
   };
 
   const back = function() {
@@ -28,7 +28,7 @@ const useVisualMode = function(initial) {
         setMode(newArray[newArray.length-1]);
         return newArray;
       })
-      console.log("useViualMode BACK ===>>",mode,history);
+      //console.log("useViualMode BACK ===>>",mode,history);
     }
   };
 
