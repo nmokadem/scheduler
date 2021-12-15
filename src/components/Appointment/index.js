@@ -30,7 +30,7 @@ export default function Appointment(props) {
 
   //Object.keys(props.interview).length === 0
   const { mode, transition, back } = useVisualMode(
-    props.interview.hasOwnProperty('student') ? SHOW : EMPTY
+    props.interview && props.interview.hasOwnProperty('student') ? SHOW : EMPTY
   );
 
   function save(name, interviewer) {
