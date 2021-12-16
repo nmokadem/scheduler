@@ -10,6 +10,8 @@ export default function Form(props) {
 
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState("");
+ 
   const myInput = useRef()
 
   // const captureFormInfo= () => {
@@ -19,7 +21,18 @@ export default function Form(props) {
   useEffect(() => {
     myInput.current.focus();
   },[]);
-  
+
+  const reset = () => {
+      setStudent("");
+      setError("");
+      setInterviewer(null);
+  }
+
+  const onCancel = () => {
+    reset();
+    props.onCancel();
+  }
+
   const onChangeHandler = (event) => {
     //this.setSate({value:event.target.value});
     setStudent(event.target.value);
@@ -27,7 +40,6 @@ export default function Form(props) {
   }
 
 
-  const [error, setError] = useState("");
   function validate() {
     if (student === "") {
       setError("Student name cannot be blank");
@@ -62,7 +74,7 @@ export default function Form(props) {
 
     <section className="appointment__card-right">
       <section className="appointment__actions">
-        <Button danger onClick={props.onCancel}>Cancel</Button>
+        <Button danger onClick={onCancel}>Cancel</Button>
         <Button confirm onClick={validate}>Save </Button>
       </section>
     </section>
