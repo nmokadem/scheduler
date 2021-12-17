@@ -2,20 +2,17 @@ import React from "react";
 
 import DayListItem from "components/DayListItem";
 
+//Components to display all the day on the right side
 export default function DayList(props) {
-  const dayListItems = props.days.map(day => 
-        <DayListItem
-          key={day.id}
-          name={day.name}
-          spots={day.spots}
-          selected={day.name === props.day}
-          setDay={props.setDay}
-        />);
+  const dayListItems = props.days.map((day) => (
+    <DayListItem
+      key={day.id}
+      name={day.name}
+      spots={day.spots}
+      selected={day.name === props.day}
+      setDay={props.setDay}
+    />
+  ));
 
-  return(
-    <ul>
-      {dayListItems}
-    </ul>
-  )
+  return <ul>{dayListItems}</ul>;
 }
-

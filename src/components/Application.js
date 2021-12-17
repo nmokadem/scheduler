@@ -3,21 +3,21 @@ import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 import useApplicationData from "hooks/useApplicationData";
 
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "helpers/selectors";
 import "components/Application.scss";
 
 export default function Application(props) {
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview
-  } = useApplicationData();
-  
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
+
   const interviewers = getInterviewersForDay(state, state.day);
 
   const appointments = getAppointmentsForDay(state, state.day).map(
-    appointment => {
+    (appointment) => {
       return (
         <Appointment
           key={appointment.id}
@@ -52,7 +52,7 @@ export default function Application(props) {
       <section className="schedule">
         <section className="schedule">
           {appointments}
-          <Appointment key="last" time="5pm" interview={{}}/>
+          <Appointment key="last" time="5pm" interview={{}} />
         </section>
       </section>
     </main>
