@@ -1,8 +1,8 @@
 # Interview Scheduler
 
-!["Image 1 Scheduler"](https://github.com/nmokadem/tweeter/blob/master/public/images/img1.png)
+!["Image 1 Scheduler"](https://github.com/nmokadem/scheduler/blob/master/public/images/img1.png)
 
-!["Image 2 Scheduler"](https://github.com/nmokadem/tweeter/blob/master/public/images/img2.png)
+!["Image 2 Scheduler"](https://github.com/nmokadem/scheduler/blob/master/public/images/img2.png)
 
 Scheduler is a simple, react project.
 
