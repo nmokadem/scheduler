@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import {
   getAppointmentsForDay,
   getInterview,
   getInterviewersForDay,
 } from "helpers/selectors";
 
+// Initialize default values for day, days, appointments and interviewers
 const useApplicationData = function () {
   const [state, setState] = useState({
     day: "Monday",
@@ -18,6 +20,7 @@ const useApplicationData = function () {
     setState({ ...state, day });
   };
 
+  //get starting data from DB
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -33,6 +36,7 @@ const useApplicationData = function () {
     });
   }, []);
 
+  //Update the #of spots available for a specific day in the message # of spots remaining
   const updateSpotsCount = (appointments) => {
     let spots = 0;
     let days = [];
@@ -51,7 +55,9 @@ const useApplicationData = function () {
     setState((prev) => ({ ...prev, days }));
   };
 
+  // Function called when saving a new/edit and interview
   function bookInterview(id, interview) {
+    
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -69,6 +75,8 @@ const useApplicationData = function () {
     });
   }
 
+// function called to delete an interview from the list as no login is required for this
+// project anybody can delete any interview
   function cancelInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],

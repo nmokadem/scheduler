@@ -30,6 +30,8 @@ export default function Appointment(props) {
     props.interview && props.interview.hasOwnProperty("student") ? SHOW : EMPTY
   );
 
+// save a new/edit interview on success display the appointment in a SHOW mode
+// On error display ERROR_SAVE mode
   function save(name, interviewer) {
     if (name && interviewer) {
       const interview = {
@@ -44,6 +46,9 @@ export default function Appointment(props) {
     }
   }
 
+
+// Delete a appointment. On succes transition to an EMPTY mode for the time slot (1Hour)
+// On  erro transition to the ERROR_DELETE mode
   function cancelBooking(name, interviewer) {
     const interview = {
       student: name,
@@ -101,7 +106,7 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE && (
         <Error
           message="Error in Saving Appointment! Contact Support."
-          onClose={() => back()}
+          onClose={() => transition('EDIT',true)}
         />
       )}
       {mode === ERROR_DELETE && (

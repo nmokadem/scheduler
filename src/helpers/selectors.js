@@ -2,7 +2,7 @@ export function getAppointmentsForDay(state, day) {
   let appointmentsArray = [];
   let appointments = [];
 
-  for (let dayObj of state.days) {
+  for (const dayObj of state.days) {
     if (dayObj.name === day) {
       appointments = dayObj.appointments;
       break;
@@ -28,7 +28,7 @@ export function getInterviewersForDay(state, day) {
   let interviewersArray = [];
   let interviewers = [];
 
-  for (let dayObj of state.days) {
+  for (const dayObj of state.days) {
     if (dayObj.name === day) {
       interviewers = dayObj.interviewers;
       break;

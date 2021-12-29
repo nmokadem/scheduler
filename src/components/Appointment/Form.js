@@ -23,20 +23,27 @@ export default function Form(props) {
     setInterviewer(null);
   };
 
+// Cancel reset form and the call onCancel passed 
   const onCancel = () => {
     reset();
     props.onCancel();
   };
 
+// A handler to update student through setStudent
   const onChangeHandler = (event) => {
-    //this.setSate({value:event.target.value});
     setStudent(event.target.value);
     setError("");
   };
 
+// Validate on save if student and interviewer has been provided
   function validate() {
     if (student === "") {
       setError("Student name cannot be blank");
+      return;
+    }
+
+    if (!interviewer) {
+      setError("Please select an interviewer!");
       return;
     }
     setError("");
@@ -63,6 +70,7 @@ export default function Form(props) {
           interviewers={props.interviewers}
           interviewer={interviewer}
           setInterviewer={setInterviewer}
+          onClick={() => setError("")}
         />
       </section>
 
